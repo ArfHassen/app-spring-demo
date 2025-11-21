@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn -s settings.xml clean package'
             }
         }
 
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh """
                     mvn versions:set -DremoveSnapshot
-                    mvn clean deploy -P release
+                    mvn -s settings.xml clean deploy -P release
                     mvn versions:commit
                 """
             }
