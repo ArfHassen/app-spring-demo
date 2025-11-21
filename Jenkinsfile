@@ -19,14 +19,14 @@ pipeline {
             }
         }
 
-        stage('Deploy SNAPSHOT') {
+        /* stage('Deploy SNAPSHOT') {
             when {
                 expression { return env.BRANCH_NAME == 'develop' }
             }
             steps {
                 sh 'mvn deploy'
             }
-        }
+        } */
 
         stage('Release') {
             when {
