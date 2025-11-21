@@ -5,13 +5,29 @@ pipeline {
         jdk 'jdk17'
         maven 'maven3'
     }
+     // Toujours déclenché par GitHub webhook
+        triggers {
+            // Ceci déclenche le job sur tout push GitHub
+            githubPush()
+        }
 
     stages {
-        stage('Checkout') {
+        /* stage('Checkout') {
             steps {
                 checkout scm
             }
-        }
+        } */
+        stage('Checkout') {
+                    steps {
+                        // Forcer le checkout même si aucun changement détecté
+                        checkout([$class: 'GitSCM',
+                            branches: [[name: 'refs/heads/main']],
+                            doGenerateSubmoduleConfigurations: false,
+                            extensions: [[$class: 'WipeWorkspace']], // vide workspace à chaque build
+                            userRemoteConfigs: [[url: 'https://github.com/ArfHassen/app-spring-demo.git']]
+                        ])
+                    }
+                }
 
         stage('Build') {
             steps {
@@ -41,4 +57,15 @@ pipeline {
             }
         }
     }
+    post {
+            always {
+                echo 'Build terminé.'
+            }
+            success {
+                echo 'Build réussi !'
+            }
+            failure {
+                echo 'Build échoué.'
+            }
+        }
 }
