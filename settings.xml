@@ -1,0 +1,23 @@
+<settings>
+    <mirrors>
+        <mirror>
+            <id>nexus</id>
+            <mirrorOf>*</mirrorOf>
+            <url>http://localhost:6061/repository/maven-public/</url>
+        </mirror>
+    </mirrors>
+
+    <servers>
+        <server>
+            <id>nexus-releases</id>
+            <username>admin</username>
+            <password>ton_nouveau_mdp_ici</password>
+        </server>
+
+        <server>
+            <id>nexus-snapshots</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+    </servers>
+</settings>
